@@ -1,0 +1,24 @@
+name: Gutentag, World!
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: mlugg/setup-zig@v1
+        with:
+          version: "0.12.0"
+
+      - name: Run
+        run: zig run src/main.zig
+
+      - name: Verify output
+        run: bash test.sh
